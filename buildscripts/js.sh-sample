@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Build script for JS. First argument ($1) is the full path to the deploy directory.
+# Build script for JS.
+# First argument ($1) is the full path to the deploy directory,
+# Second argument ($2) is short commit hash.
 
-if [[ $# -ne 1 ]]; then
-  echo "Deploy folder not specified" >&2
+if [[ $# -ne 2 ]]; then
+  echo "Deploy folder and commit not specified" >&2
   exit 2
 fi
 
-#pushd $1 > /dev/null 2>&1
-#echo "Building js"
-#echo "PROCESSING" >> testa.js
-#popd > /dev/null 2>&1
+# $1/mybuildscript.sh $1 $2
+
