@@ -5,8 +5,9 @@ source ../deploy.config
 read OLD NEW REF
 USER_EMAIL=$(git log -1 --format=format:%ae HEAD)
 USER_NAME=$(git log -1 --format=format:%an HEAD)
+COMMIT=$(echo $NEW | cut -c1-7)
 
-echo "$( date +'%Y-%m-%d %H:%M:%S' ) PUSH REQUEST: $USER_NAME ($USER_EMAIL) $REF $(echo $NEW | cut -c1-7)" >> $LOGFILE
+echo "$( date +'%Y-%m-%d %H:%M:%S' ) PUSH REQUEST: $USER_NAME ($USER_EMAIL) $REF $COMMIT" >> $LOGFILE
 
 
 # Build triggers
@@ -31,9 +32,13 @@ git --work-tree=$DEPLOYDIR --git-dir=$GITDIR checkout -f
 
 # Build scripts
 if [[ $SCSSDIFF == 1 && -f $CSSBUILD ]]; then
-  $CSSBUILD $DEPLOYDIR
+  $CSSBUILD $DEPLOYDIR $COMMIT
 fi
 
 if [[ $JSDIFF == 1 && -f $JSBUILD ]]; then
-  $JSBUILD $DEPLOYDIR
+  $JSBUILD $DEPLOYDIR $COMMIT
 fi
+
+echo "Commit $COMMIT released"
+echo "$( date +'%Y-%m-%d %H:%M:%S' ) COMMIT $COMMIT released" >> $LOGFILE
+
