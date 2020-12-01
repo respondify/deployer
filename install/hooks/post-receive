@@ -30,10 +30,10 @@ git --work-tree=$DEPLOYDIR --git-dir=$GITDIR checkout -f
 
 
 # Build scripts
-if [[ $SCSSDIFF == 1 && -f $CSSBUILD]]; then
+if [[ $SCSSDIFF == 1 && -f $CSSBUILD ]]; then
   $CSSBUILD $DEPLOYDIR
 fi
 
-if [[ $JSDIFF == 1 && -f $JSBUILD]]; then
+if [[ $JSDIFF == 1 && -f $JSBUILD ]]; then
   $JSBUILD $DEPLOYDIR
 fi
