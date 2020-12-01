@@ -1,0 +1,18 @@
+#!/bin/bash
+# pre-receive
+
+source ../deploy.config
+
+USER_EMAIL=$(git log -1 --format=format:%ae HEAD)
+USER_NAME=$(git log -1 --format=format:%an HEAD)
+
+
+while read OLD NEW REF
+do
+  if ! [[ $REF =~ /$BRANCH$ ]] ; then
+    echo "$( date +'%Y-%m-%d %H:%M:%S' ) DENIED PUSH REQUEST: $USER_NAME ($USER_EMAIL) $REF $(echo $NEW | cut -c1-7): Wrong branch" >> $LOGFILE
+    echo "Push request denied: Invalid branch ( $REF ), accepting branch $BRANCH."
+    exit 1
+  fi
+done
+

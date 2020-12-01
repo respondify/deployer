@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Build script for CSS. First argument ($1) is the full path to the deploy directory.
+
+if [[ $# -ne 1 ]]; then
+  echo "Deploy folder not specified" >&2
+  exit 2
+fi
+
+echo "Building CSS"
+

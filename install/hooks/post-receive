@@ -1,0 +1,39 @@
+#!/bin/bash
+
+source ../deploy.config
+
+read OLD NEW REF
+USER_EMAIL=$(git log -1 --format=format:%ae HEAD)
+USER_NAME=$(git log -1 --format=format:%an HEAD)
+
+echo "$( date +'%Y-%m-%d %H:%M:%S' ) PUSH REQUEST: $USER_NAME ($USER_EMAIL) $REF $(echo $NEW | cut -c1-7)" >> $LOGFILE
+
+
+# Build triggers
+JSDIFF=0
+SCSSDIFF=0
+
+if git diff --name-only $OLD $NEW | grep -q '.scss'; then
+  SCSSDIFF=1
+fi
+
+if git diff --name-only $OLD $NEW | grep -q '.js'; then
+  JSDIFF=1
+fi
+
+
+# Deploy files
+cd "$DEPLOYDIR"
+git --work-tree=$DEPLOYDIR --git-dir=$GITDIR checkout -f
+# Todo: config option for updating submodules?
+#git --work-tree=$DEPLOYDIR --git-dir=$GITDIR submodule update --init --recursive
+
+
+# Build scripts
+if [[ $SCSSDIFF == 1 && -f $CSSBUILD]]; then
+  $CSSBUILD $DEPLOYDIR
+fi
+
+if [[ $JSDIFF == 1 && -f $JSBUILD]]; then
+  $JSBUILD $DEPLOYDIR
+fi
