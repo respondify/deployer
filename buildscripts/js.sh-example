@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build script for JS.
+# Build script for JS. This script is run if there are any changes to *.js files
 # First argument ($1) is the full path to the deploy directory,
 # Second argument ($2) is short commit hash.
 

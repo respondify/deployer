@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Build script to copy all files with retained permissions to public web folder
+# Build script to e.g copy all files with retained permissions to public web folder
 # Make sure deploydir is group www-data and chmod g+s 
+# If enabled, this script is *always* run after each push after all other build scripts
 # First argument ($1) is the full path to the deploy directory,
 # Second argument ($2) is short commit hash.
 
