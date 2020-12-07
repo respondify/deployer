@@ -33,5 +33,5 @@ echo "CSSBUILD=$CSSBUILD" >> deploy.config
 # Done
 echo Done. Check configuration in deploy.config and customize buildscripts.
 echo Add this server as a remote on your dev env and push branch $BRANCH
-echo \$ git remote add $BRANCH https://$(hostname)$(pwd)/gitdir
+echo \$ git remote add $BRANCH ssh://$(hostname)$(pwd)/gitdir
 echo \$ git push $BRANCH $BRANCH
