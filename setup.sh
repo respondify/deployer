@@ -9,6 +9,7 @@ DEPLOYDIR=$(pwd)/deploydir
 LOGFILE=$(pwd)/logs/deploy.log
 JSBUILD=$(pwd)/buildscripts/js.sh
 CSSBUILD=$(pwd)/buildscripts/css.sh
+DEPLOYSCRIPT=$(pwd)/buildscripts/deploy.sh
 
 mkdir -p $GITDIR
 mkdir -p $DEPLOYDIR
@@ -29,6 +30,7 @@ echo "DEPLOYDIR=$DEPLOYDIR" >> deploy.config
 echo "LOGFILE=$LOGFILE" >> deploy.config
 echo "JSBUILD=$JSBUILD" >> deploy.config
 echo "CSSBUILD=$CSSBUILD" >> deploy.config
+echo "DEPLOYSCRIPT=$DEPLOYSCRIPT" >> deploy.config
 
 # Done
 echo Done. Check configuration in deploy.config and customize buildscripts.

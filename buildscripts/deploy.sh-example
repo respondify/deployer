@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Build script to copy all files with retained permissions to public web folder
+# Make sure deploydir is group www-data and chmod g+s 
+# First argument ($1) is the full path to the deploy directory,
+# Second argument ($2) is short commit hash.
+
+if [[ $# -ne 2 ]]; then
+  echo "Deploy folder and commit not specified" >&2
+  exit 2
+fi
+
+# IMPORTANT! No trailing slash!
+WEBFOLDER=/var/www/default
+
+echo "Copying files from $1 to $WEBFOLDER"
+pushd $1 > /dev/null 2>&1
+cp -R index.php $WEBFOLDER/
+cp -R .htaccess $WEBFOLDER/
+cp -R static $WEBFOLDER/
+cp -R plugins $WEBFOLDER/
+cp -R website/cli $WEBFOLDER/website/
+cp -R website/config $WEBFOLDER/website/
+cp -R website/controllers $WEBFOLDER/website/
+cp -R website/lib $WEBFOLDER/website/
+cp -R website/models $WEBFOLDER/website/
+cp -R website/modules $WEBFOLDER/website/
+cp -R website/views $WEBFOLDER/website/
+
+popd > /dev/null 2>&1
+

@@ -39,6 +39,10 @@ if [[ $JSDIFF == 1 && -f $JSBUILD ]]; then
   $JSBUILD $DEPLOYDIR $COMMIT
 fi
 
+if [[ -f $DEPLOYSCRIPT ]]; then
+  $DEPLOYSCRIPT $DEPLOYDIR $COMMIT
+fi
+
 echo "Commit $COMMIT released"
 echo "$( date +'%Y-%m-%d %H:%M:%S' ) COMMIT $COMMIT released" >> $LOGFILE
 
