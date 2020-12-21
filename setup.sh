@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "This will setup a git deploy pipeline on this server."
-echo "Specify branch to deploy (other pushed branches will be ignored), e.g. master:" 
-read BRANCH
+echo -e "Specify branch to deploy (other pushed branches will be ignored), e.g. master: \c" 
+read -r BRANCH 
 
 GITDIR=$(pwd)/gitdir
 DEPLOYDIR=$(pwd)/deploydir
