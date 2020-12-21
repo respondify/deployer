@@ -25,19 +25,19 @@ then
 
   # Build scripts
   if [[ -f $CSSBUILD ]]; then
-    $CSSBUILD $DEPLOYDIR $COMMIT
+    $CSSBUILD $DEPLOYDIR $RESETCOMMIT
   fi
 
   if [[ -f $JSBUILD ]]; then
-    $JSBUILD $DEPLOYDIR $COMMIT
+    $JSBUILD $DEPLOYDIR $RESETCOMMIT
   fi
 
   if [[ -f $DEPLOYSCRIPT ]]; then
-    $DEPLOYSCRIPT $DEPLOYDIR $COMMIT
+    $DEPLOYSCRIPT $DEPLOYDIR $RESETCOMMIT
   fi
 
-  echo "Commit $COMMIT released"
-  echo "$( date +'%Y-%m-%d %H:%M:%S' ) COMMIT $COMMIT released (manual rollback)" >> $LOGFILE
+  echo "Commit $RESETCOMMIT released"
+  echo "$( date +'%Y-%m-%d %H:%M:%S' ) COMMIT $RESETCOMMIT released (manual rollback)" >> $LOGFILE
 
 else 
   echo "Commit $RESETCOMMIT does not exist"
