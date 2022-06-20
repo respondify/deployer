@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ ! -f deploy.config ]]; then
-  echo "deploy.confg not found, is everything setup?"
+  echo "deploy.config not found, is everything setup?"
   exit 1
 fi;
 source ./deploy.config
