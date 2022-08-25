@@ -14,6 +14,11 @@ if [[ -e "$GITDIR" ]]; then
   exit 2
 fi
 
+if [[ -e "deploy.config" ]]; then
+  echo "You already have a deploy.config file, are you sure?"
+  exit 2
+fi
+
 echo -e "Specify branch to deploy (other pushed branches will be ignored) [master]: \c" 
 read -r BRANCH 
 if [[ -z $BRANCH ]]; then
