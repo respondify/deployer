@@ -1,8 +1,6 @@
 #!/bin/bash
 
 echo "This will setup a git deploy pipeline on this server."
-echo -e "Specify branch to deploy (other pushed branches will be ignored), e.g. master: \c" 
-read -r BRANCH 
 
 GITDIR=$(pwd)/gitdir
 DEPLOYDIR=$(pwd)/deploydir
@@ -11,9 +9,24 @@ JSBUILD=$(pwd)/buildscripts/js.sh
 CSSBUILD=$(pwd)/buildscripts/css.sh
 DEPLOYSCRIPT=$(pwd)/buildscripts/deploy.sh
 
+if [[ -e "$GITDIR" ]]; then
+  echo "$GITDIR already exists, are you sure?"
+  exit 2
+fi
+
+echo -e "Specify branch to deploy (other pushed branches will be ignored) [master]: \c" 
+read -r BRANCH 
+if [[ -z $BRANCH ]]; then
+  BRANCH="master"
+fi
+
 mkdir -p $GITDIR
 mkdir -p $DEPLOYDIR
+mkdir -p buildscripts
 mkdir -p logs
+
+# Copy example buildscripts
+cp ./install/buildscripts/* ./buildscripts/
 
 # Setup git repo
 pushd gitdir > /dev/null 2>&1
@@ -33,7 +46,10 @@ echo "CSSBUILD=$CSSBUILD" >> deploy.config
 echo "DEPLOYSCRIPT=$DEPLOYSCRIPT" >> deploy.config
 
 # Done
-echo Done. Check configuration in deploy.config and customize buildscripts.
-echo Add this server as a remote on your dev env and push branch $BRANCH
-echo \$ git remote add $BRANCH ssh://$(hostname)$(pwd)/gitdir
-echo \$ git push $BRANCH $BRANCH
+echo "Done. Now you need to:"
+echo "* Check settings in the deploy.config file, f eg DEPLOYDIR (if you want to deploy to another folder)"
+echo "* Copy/customize buildscripts in the ./buildscripts folder"
+echo "* Add this server as a remote on your dev env:"
+echo " - \$ git remote add $BRANCH ssh://$(hostname)$(pwd)/gitdir"
+echo "* When all set, push branch here to upload a copy and run buildscripts first time"
+echo " - \$ git push $BRANCH $BRANCH"

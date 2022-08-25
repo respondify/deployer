@@ -1,3 +1,5 @@
-gitdir
-deploydir
-logs
+/gitdir
+/deploydir
+/logs
+/buildscripts/
+/deploy.config

@@ -40,7 +40,7 @@ if [[ $JSDIFF == 1 && -f $JSBUILD ]]; then
 fi
 
 if [[ -f $DEPLOYSCRIPT ]]; then
-  $DEPLOYSCRIPT $DEPLOYDIR $COMMIT
+  source $DEPLOYSCRIPT 
 fi
 
 echo "Commit $COMMIT released"

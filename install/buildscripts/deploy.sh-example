@@ -1,15 +1,27 @@
 #!/bin/bash
 
-# Build script to e.g copy all files with retained permissions to public web folder
-# Make sure deploydir is group www-data and chmod g+s 
-# If enabled, this script is *always* run after each push after all other build scripts
-# First argument ($1) is the full path to the deploy directory,
-# Second argument ($2) is short commit hash.
+# This script (if renamed to deploy.sh) is always run after a deploy.
+# Put custom post-deploy tasks here, f eg Pimcore CLI commands.
+# Anything echoed from here will be visible upon git push.
+# Make sure deploydir is group www-data and chmod g+s.
 
-if [[ $# -ne 2 ]]; then
-  echo "Deploy folder and commit not specified" >&2
-  exit 2
-fi
+# Available variables:
+#  $DEPLOYDIR	Deploy folder (where files are deployed)
+#  $GITDIR 	Git folder (where repo is kept)
+#  $COMMIT  	Git commit short hash (7 first chars)
+#  $NEW		Git commit long hash for deploy
+#  $OLD		Git commit long hash for previous deploy
+#  $REF		Git branch name
+#  $USER_EMAIL  User email
+#  $USER_NAME   User name
+#  $JSDIFF 	1 if a .js file has been changed, 0 if not
+#  $CSSDIFF 	1 if a .scss file has been changed, 0 if not
+
+# Default: Do not run examples below.
+return
+
+### EXAMPLE ###
+# Use a separate deploy folder and copy files to a webfolder
 
 # IMPORTANT! No trailing slash!
 WEBFOLDER=/var/www/default
