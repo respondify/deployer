@@ -22,6 +22,10 @@ if git diff --name-only $OLD $NEW | grep -q '.js'; then
   JSDIFF=1
 fi
 
+if git diff --name-only $OLD $NEW | grep -q 'angular/'; then
+  JSDIFF=1
+fi
+
 
 # Deploy files
 cd "$DEPLOYDIR"
@@ -40,7 +44,7 @@ if [[ $JSDIFF == 1 && -f $JSBUILD ]]; then
 fi
 
 if [[ -f $DEPLOYSCRIPT ]]; then
-  source $DEPLOYSCRIPT 
+  $DEPLOYSCRIPT $DEPLOYDIR $COMMIT
 fi
 
 echo "Commit $COMMIT released"
